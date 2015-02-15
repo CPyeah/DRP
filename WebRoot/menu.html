@@ -4,8 +4,9 @@
 
 		<title>系统菜单</title>
 	</HEAD>
+	<h1>123</h1>
 	<body text="#FFFFFF" topmargin="0" leftmargin=0>
-		<SCript LANGUAGE=JSCRIPT>
+		<SCRIPT language=JavaScript>
 
 	OutBarFolder1=new Array("分销商库存管理","images/admin.gif","分销商库存数量初始化","flowcard/inv_init_qty_maint.html","parent.parent.main", "images/admin.gif","分销商库存初始化确认","flowcard/inv_init_qty_confirm.html","parent.parent.main","images/admin.gif","流向单维护","flowcard/flow_card_maint.html","parent.parent.main","images/admin.gif","流向单审核","flowcard/flow_card_audit.html","parent.parent.main","images/admin.gif","流向单抽查","flowcard/flow_card_spot_test.html","parent.parent.main","images/admin.gif","流向单复审","flowcard/flow_card_rehear.html","parent.parent.main","images/admin.gif","盘点结果维护","flowcard/checkvou_maint.html","parent.parent.main","images/admin.gif","盘点结果审核","flowcard/checkvou_audit.html","parent.parent.main"); 
 	OutBarFolder2=new Array("分销费管理"); 
@@ -206,7 +207,7 @@ function ItemSelected(item)
 		return;		
 	item.style.border="1 outset #ffffff";
 	if(item.link.indexOf("javascript")!=-1) 
-		eval(item.link)
+		eval(item.link);
 	else 
 		eval(item.targetFrame+".location='"+item.link+"'");
 }
@@ -339,7 +340,7 @@ if (document.all)
 	i=j-1;
 	while(i>0)
 	{
-		Folder=eval("OutBarFolder"+i)
+		Folder=eval("OutBarFolder"+i);
 //		window.status="Outlook-Like Bar is making folder '"+Folder[0]+"'";
 		if(i==1)
 		{
