@@ -1,5 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
+<%@ page import="com.cp.drp.sysmgr.domain.*"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.cp.drp.sysmgr.manager.*" %>
+
+<%		
+		request.setCharacterEncoding("GB18030");
+		String command = request.getParameter("command");
+		//out.println("command="+command);
+		if("add".equals(command)) {
+			String userId = request.getParameter("userId");
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
+			String contactTel = request.getParameter("contactTel");
+			String email = request.getParameter("email");
+					
+			User user = new User();
+			user.setUserId(userId);
+			user.setUserName(userName);
+			user.setPassword(password);
+			user.setContactTel(contactTel);
+			user.setEmail(email);
+			user.setCreateDate(new Date());
+			
+			UserManager.getInstance().addUser(user); 
+			out.println("添加成功！！");
+		}
+		
+%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
@@ -87,6 +115,19 @@
 			}
 		}
 		
+		//取得form对象提交表单
+		/*
+		document.getElementById("userForm").method="post";
+		document.getElementById("userForm").action="user_add.jsp";
+		document.getElementById("userForm").submit();
+		*/
+		
+		//效果同上
+		with(document.getElementById("userForm")) {
+			method="post";
+			action="user_add.jsp?command=add";
+			submit();
+		}
 	}
 	
 	function init() {

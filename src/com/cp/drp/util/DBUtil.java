@@ -63,8 +63,8 @@ public class DBUtil {
 	}
 	
 	/*public static void main(String[] args) {
-		DB.getConnection();
-		System.out.println("-----------ok--------------");
+		DBUtil.getConnection();
+		System.out.println("");
 		
 	}*/
 }

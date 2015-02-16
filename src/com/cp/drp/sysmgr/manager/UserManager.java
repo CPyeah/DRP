@@ -36,21 +36,27 @@ public class UserManager {
 	 */
 	public void addUser(User user) {
 		String sql = "insert into t_user(user_id, user_name, password, contact_tel," +
-				"contact_tel, email, create_date) values(?, ?, ?, ?, ?, ?)";
+				"email, create_date) values(?, ?, ?, ?, ?, ?)";
+		System.out.println("UserManager.addUser() user=" + user);
+		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBUtil.getConnection();
+			
 			pstmt = conn.prepareStatement(sql); 
 			pstmt.setString(1, user.getUserId());
 			pstmt.setString(2, user.getUserName());
 			pstmt.setString(3, user.getPassword());
 			pstmt.setString(4, user.getContactTel());
-			pstmt.setString(5, user.getEmall());
+			pstmt.setString(5, user.getEmail());
 			pstmt.setTimestamp(6, new Timestamp(user.getCreateDate().getTime()));//注意Timestamp
 			pstmt.executeUpdate();
+			
+			
 		} catch (SQLException e) {
-			// TODO: handle exception
+			System.err.println("添加用户失败" + e);
+			e.printStackTrace();
 		} finally {
 			//必须guanbi
 			DBUtil.close(pstmt);

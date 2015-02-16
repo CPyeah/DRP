@@ -8,6 +8,11 @@ import java.util.Date;
  *
  */
 public class User {
+	@Override
+	public String toString() {
+		return this.userName;
+	}
+
 	private String userId;
 	
 	private String userName;
@@ -16,7 +21,7 @@ public class User {
 	
 	private String contactTel;
 	
-	private String emall;
+	private String email;
 	
 	private Date createDate;
 		
@@ -53,12 +58,12 @@ public class User {
 		this.contactTel = contactTel;
 	}
 
-	public String getEmall() {
-		return emall;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmall(String emall) {
-		this.emall = emall;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getCreateDate() {
