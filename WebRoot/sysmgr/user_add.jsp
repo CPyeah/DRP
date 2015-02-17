@@ -9,22 +9,27 @@
 		String command = request.getParameter("command");
 		//out.println("command="+command);
 		if("add".equals(command)) {
-			String userId = request.getParameter("userId");
-			String userName = request.getParameter("userName");
-			String password = request.getParameter("password");
-			String contactTel = request.getParameter("contactTel");
-			String email = request.getParameter("email");
-					
-			User user = new User();
-			user.setUserId(userId);
-			user.setUserName(userName);
-			user.setPassword(password);
-			user.setContactTel(contactTel);
-			user.setEmail(email);
-			user.setCreateDate(new Date());
 			
-			UserManager.getInstance().addUser(user); 
-			out.println("添加成功！！");
+			if(UserManager.getInstance().findById(request.getParameter("userId")) == null) {
+				String userId = request.getParameter("userId");
+				String userName = request.getParameter("userName");
+				String password = request.getParameter("password");
+				String contactTel = request.getParameter("contactTel");
+				String email = request.getParameter("email");
+						
+				User user = new User();
+				user.setUserId(userId);
+				user.setUserName(userName);
+				user.setPassword(password);
+				user.setContactTel(contactTel);
+				user.setEmail(email);
+				user.setCreateDate(new Date());
+				
+				UserManager.getInstance().addUser(user); 
+				out.println("添加成功！！");
+			} else {
+				out.println("用户代码重复，代码=【" + request.getParameter("userId") + "】");
+			}
 		}
 		
 %>
