@@ -8,26 +8,33 @@
 		request.setCharacterEncoding("GB18030");
 		String command = request.getParameter("command");
 		//out.println("command="+command);
+		String userId = "";
+		String userName = "";
+		String password = "";
+		String contactTel = "";
+		String email = "";
+		
 		if("add".equals(command)) {
 			
 			if(UserManager.getInstance().findById(request.getParameter("userId")) == null) {
-				String userId = request.getParameter("userId");
-				String userName = request.getParameter("userName");
-				String password = request.getParameter("password");
-				String contactTel = request.getParameter("contactTel");
-				String email = request.getParameter("email");
+				
 						
 				User user = new User();
-				user.setUserId(userId);
-				user.setUserName(userName);
-				user.setPassword(password);
-				user.setContactTel(contactTel);
-				user.setEmail(email);
+				user.setUserId(request.getParameter("userId"));
+				user.setUserName(request.getParameter("userName"));
+				user.setPassword(request.getParameter("password"));
+				user.setContactTel(request.getParameter("contactTel"));
+				user.setEmail(request.getParameter("email"));
 				user.setCreateDate(new Date());
 				
 				UserManager.getInstance().addUser(user); 
 				out.println("添加成功！！");
 			} else {
+				userId = request.getParameter("userId");
+				userName = request.getParameter("userName");
+				password = request.getParameter("password");
+				contactTel = request.getParameter("contactTel");
+				email = request.getParameter("email");
 				out.println("用户代码重复，代码=【" + request.getParameter("userId") + "】");
 			}
 		}
@@ -184,7 +191,7 @@
 						</td>
 						<td width="78%">
 							<input name="userId" type="text" class="text1" id="userId"
-								size="10" maxlength="10" onkeypress="userIdOnKeyPress()">
+								size="10" maxlength="10" onkeypress="userIdOnKeyPress()" value=<%=userId %>>
 						</td>
 					</tr>
 					<tr>
@@ -195,7 +202,7 @@
 						</td>
 						<td>
 							<input name="userName" type="text" class="text1" id="userName"
-								size="20" maxlength="20">
+								size="20" maxlength="20" value=<%=userName %>>
 						</td>
 					</tr>
 					<tr>
@@ -207,7 +214,7 @@
 						<td>
 							<label>
 								<input name="password" type="password" class="text1"
-									id="password" size="20" maxlength="20">
+									id="password" size="20" maxlength="20" value=<%=password %>>
 							</label>
 						</td>
 					</tr>
@@ -219,7 +226,7 @@
 						</td>
 						<td>
 							<input name="contactTel" type="text" class="text1"
-								id="contactTel" size="20" maxlength="20">
+								id="contactTel" size="20" maxlength="20" value=<%=contactTel %>>
 						</td>
 					</tr>
 					<tr>
@@ -230,7 +237,7 @@
 						</td>
 						<td>
 							<input name="email" type="text" class="text1" id="email"
-								size="20" maxlength="20">
+								size="20" maxlength="20" value=<%=email %>>
 						</td>
 					</tr>
 				</table>
