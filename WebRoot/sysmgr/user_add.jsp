@@ -152,11 +152,52 @@
 		}
 	}
 	
+	//Ajax
+	var xmlHTTP;
+	function createXMLHttpRequest() {
+		if(window.XMLHttpRequest) {
+			xmlHTTP = new XMLHttpRequest;
+		} else if(window.ActiveXObject) {
+			xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+	}
+	
+	function validate(field) {
+		//alert(document.getElementById("userId").value);
+		//alert(field.value);
+		if(trim(field.value).length != 0) {
+			//创建XMLHttpRequest
+			createXMLHttpRequest();
+			var url = "user_validate.jsp?userId=" + trim(field.value) + "&timestamp = " + new Date().getTime();
+			//alert(url);
+			xmlHTTP.open("GET", url, true);
+			//方法地址，处理完成后自动调用，回调
+			xmlHTTP.onreadystatechange=callback;
+			//将参数发挥到Ajax引擎
+			xmlHTTP.send(null);
+		} else {
+			document.getElementById("userIdSpan").innerHTML = "";
+		}
+	}
+	
+	function callback() {
+		if(xmlHTTP.readyState == 4) {
+			if(xmlHTTP.status == 200) {
+				//alert(xmlHTTP.responseText);
+				document.getElementById("userIdSpan").innerHTML = "<font color='red'>" + xmlHTTP.responseText + "</font>";
+			} else {
+				alert("请求失败，错误吗 = " + xmlHTTP.status);
+			}
+		}
+	}
+	
 	function document.onkeydown() {
 		if(event.keyCode == 13 && event.srcElement.type != "button") {
 			event.keyCode = 9;
 		}
 	}
+	
+	
 
 </script>
 	</head>
@@ -191,7 +232,8 @@
 						</td>
 						<td width="78%">
 							<input name="userId" type="text" class="text1" id="userId"
-								size="10" maxlength="10" onkeypress="userIdOnKeyPress()" value=<%=userId %>>
+								size="10" maxlength="10" onblur="validate(this)" onkeypress="userIdOnKeyPress()" 
+								value="<%=userId %>" ><span id="userIdSpan"></span>
 						</td>
 					</tr>
 					<tr>
@@ -215,6 +257,7 @@
 							<label>
 								<input name="password" type="password" class="text1"
 									id="password" size="20" maxlength="20" value=<%=password %>>
+									
 							</label>
 						</td>
 					</tr>
