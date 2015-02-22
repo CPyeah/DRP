@@ -172,14 +172,23 @@
 			//alert(url);
 			xmlHTTP.open("GET", url, true);
 			//方法地址，处理完成后自动调用，回调
-			xmlHTTP.onreadystatechange=callback;
+			xmlHTTP.onreadystatechange=function() {  //使用匿名函数
+				if(xmlHTTP.readyState == 4) {
+					if(xmlHTTP.status == 200) {
+						//alert(xmlHTTP.responseText);
+						document.getElementById("userIdSpan").innerHTML = "<font color='red'>" + xmlHTTP.responseText + "</font>";
+					} else {
+						alert("请求失败，错误吗 = " + xmlHTTP.status);
+					}
+				}
+			};
 			//将参数发挥到Ajax引擎
 			xmlHTTP.send(null);
 		} else {
 			document.getElementById("userIdSpan").innerHTML = "";
 		}
 	}
-	
+	/*
 	function callback() {
 		if(xmlHTTP.readyState == 4) {
 			if(xmlHTTP.status == 200) {
@@ -190,6 +199,7 @@
 			}
 		}
 	}
+	*/
 	
 	function document.onkeydown() {
 		if(event.keyCode == 13 && event.srcElement.type != "button") {
