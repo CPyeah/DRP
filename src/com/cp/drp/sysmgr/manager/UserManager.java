@@ -1,9 +1,12 @@
 package com.cp.drp.sysmgr.manager;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cp.drp.sysmgr.domain.User;
 import com.cp.drp.util.DBUtil;
+import com.cp.drp.util.PageModel;
 
 
 /**
@@ -84,12 +87,12 @@ public class UserManager {
 			//存在用户信息
 			if(rs.next()) {
 				user = new User();
-				user.setUserId(rs.getString(1));
-				user.setUserName(rs.getString(2));
-				user.setPassword(rs.getString(3));
-				user.setContactTel(rs.getString(4));
-				user.setEmail(rs.getString(5));
-				user.setCreateDate(rs.getTimestamp(6));
+				user.setUserId(rs.getString("user_id"));
+				user.setUserName(rs.getString("user_name"));
+				user.setPassword(rs.getString("password"));
+				user.setContactTel(rs.getString("contact_tel"));
+				user.setEmail(rs.getString("email"));
+				user.setCreateDate(rs.getTimestamp("create_date"));
 				
 			}
 		} catch (SQLException e) {
@@ -100,6 +103,82 @@ public class UserManager {
 			DBUtil.close(conn);
 		}
 		return user;
+	}
+	
+	/**
+	 * 分页查询
+	 * @param pageNo 第几页
+	 * @param pageSize 每页多少条数据
+	 * @return PageModel对象
+	 */
+	public PageModel findAllUser(int pageNo, int pageSize) {
+		StringBuffer sbSql = new StringBuffer();
+		sbSql.append("select * from ( ")
+				.append("select rownum rn , t.* from ( ")
+					.append("select * from t_user where user_id <>'root' order by user_id ")
+						.append(") t where rownum <=? ")
+			.append(") where rn > ? ");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PageModel pageModel = null;
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sbSql.toString());
+			pstmt.setInt(1, pageNo * pageSize);
+			pstmt.setInt(2, (pageNo-1) * pageSize);
+			rs = pstmt.executeQuery();
+			List<User> userList = new ArrayList<User>();
+			while (rs.next()) {
+				User user = new User();
+				user.setUserId(rs.getString("user_id"));
+				user.setUserName(rs.getString("user_name"));
+				user.setPassword(rs.getString("password"));
+				user.setContactTel(rs.getString("contact_tel"));
+				user.setEmail(rs.getString("email"));
+				user.setCreateDate(rs.getTimestamp("create_date"));
+				userList.add(user);
+			}
+			pageModel = new PageModel();
+			pageModel.setList(userList);
+			pageModel.setTotalRecords(getTotalRecords(conn));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+			DBUtil.close(conn);
+		}
+		return pageModel;
+		
+		/*PageModel p = new PageModel();
+		p.setList(list);
+		p.setTotalRecords(10);*/
+	}
+	
+	/**
+	 * 取得记录数
+	 * @param conn
+	 * @return 记录数
+	 * @throws SQLException
+	 */
+	private int getTotalRecords(Connection conn) throws SQLException {
+		String sql = "select count(*) from t_user where user_id <> 'root'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			count = rs.getInt(1);
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		
+		
+		return count;
 	}
 
 }
