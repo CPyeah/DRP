@@ -48,7 +48,7 @@
 		<script src="../script/client_validate.js"></script>
 		<script type="text/javascript">
 	function goBack() {
-		window.self.location="user_maint.html"
+		window.self.location="user_maint.jsp";
 	}
 	
 	function addUser() {

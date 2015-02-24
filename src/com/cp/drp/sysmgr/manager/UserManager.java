@@ -142,6 +142,8 @@ public class UserManager {
 			pageModel = new PageModel();
 			pageModel.setList(userList);
 			pageModel.setTotalRecords(getTotalRecords(conn));
+			pageModel.setPageSize(pageSize);
+			pageModel.setPageNo(pageNo);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

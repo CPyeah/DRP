@@ -51,7 +51,7 @@ public class User {
 	}
 
 	public String getContactTel() {
-		return contactTel;
+		return contactTel == null ? "" : contactTel;
 	}
 
 	public void setContactTel(String contactTel) {
@@ -59,7 +59,7 @@ public class User {
 	}
 
 	public String getEmail() {
-		return email;
+		return email == null ? "" : email;
 	}
 
 	public void setEmail(String email) {

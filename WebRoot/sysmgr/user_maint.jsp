@@ -6,7 +6,12 @@
 <%@ page import="java.util.* " %>
 <%@ page import="java.text.*" %>
 <%
+	String pageNoString = request.getParameter("pageNo");
+	out.print(pageNoString);
 	int pageNo = 1;
+	if (pageNoString != null && !"".equals(pageNoString)) {
+		pageNo = Integer.parseInt(pageNoString);
+	}
 	int pageSize = 2;
 	PageModel pageModel = UserManager.getInstance().findAllUser(pageNo, pageSize);
  %>
@@ -34,19 +39,19 @@
 	}
 
 	function topPage() {
-		
+		window.self.location = "user_maint.jsp?pageNo=<%=pageModel.getTopPageNo()%>";
 	}
 	
 	function previousPage() {
-		
+		window.self.location = "user_maint.jsp?pageNo=<%=pageModel.getPreviousPageNo()%>";
 	}	
 	
 	function nextPage() {
-		
+		window.self.location = "user_maint.jsp?pageNo=<%=pageModel.getNextPageNo()%>";
 	}
 	
 	function bottomPage() {
-		
+		window.self.location = "user_maint.jsp?pageNo=<%=pageModel.getBottomPageNo()%>";
 	}
 
 </script>
@@ -122,7 +127,7 @@
 						<%=user.getUserName() %>
 					</td>
 					<td class="rd8">
-						<%=user.getContactTel() %>
+						<%=user.getContactTel() == null ? "" : user.getContactTel()%>
 					</td>
 					<td class="rd8">
 						<%=user.getEmail() %>
@@ -141,9 +146,9 @@
 				<tr>
 					<td nowrap class="rd19" height="2">
 						<div align="left">
-							<font color="#FFFFFF">&nbsp;共&nbspxx&nbsp页</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<font color="#FFFFFF">&nbsp;共&nbsp<%=pageModel.getTotalPages() %>&nbsp页</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<font color="#FFFFFF">当前第</font>&nbsp
-							<font color="#FF0000">x</font>&nbsp
+							<font color="#FF0000"><%=pageModel.getPageNo() %></font>&nbsp
 							<font color="#FFFFFF">页</font>
 						</div>
 					</td>
