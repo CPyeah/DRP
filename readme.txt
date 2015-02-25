@@ -26,6 +26,9 @@ v1.7
 v1.8
 	* 封装分页组件PageModel
 	
+v1.9
+	* 采用泛型封装分页组件PageModel
+	
 	
 	
 	

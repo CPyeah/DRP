@@ -111,7 +111,7 @@ public class UserManager {
 	 * @param pageSize 每页多少条数据
 	 * @return PageModel对象
 	 */
-	public PageModel findAllUser(int pageNo, int pageSize) {
+	public PageModel<User> findAllUser(int pageNo, int pageSize) {
 		StringBuffer sbSql = new StringBuffer();
 		sbSql.append("select * from ( ")
 				.append("select rownum rn , t.* from ( ")
@@ -121,7 +121,7 @@ public class UserManager {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		PageModel pageModel = null;
+		PageModel<User> pageModel = null;
 		try {
 			conn = DBUtil.getConnection();
 			pstmt = conn.prepareStatement(sbSql.toString());
@@ -139,7 +139,7 @@ public class UserManager {
 				user.setCreateDate(rs.getTimestamp("create_date"));
 				userList.add(user);
 			}
-			pageModel = new PageModel();
+			pageModel = new PageModel<User>();
 			pageModel.setList(userList);
 			pageModel.setTotalRecords(getTotalRecords(conn));
 			pageModel.setPageSize(pageSize);

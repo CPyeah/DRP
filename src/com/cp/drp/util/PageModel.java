@@ -7,10 +7,10 @@ import java.util.List;
  * @author john
  *
  */
-public class PageModel {
+public class PageModel<T> {
 	
 	//保存结果集
-	private List list;
+	private List<T> list;
 	
 	//保存记录数
 	private int totalRecords;
@@ -66,11 +66,11 @@ public class PageModel {
 		} else return this.pageNo + 1;
 	}
 
-	public List getList() {
+	public List<T> getList() {
 		return list;
 	}
 
-	public void setList(List list) {
+	public void setList(List<T> list) {
 		this.list = list;
 	}
 

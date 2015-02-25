@@ -7,13 +7,13 @@
 <%@ page import="java.text.*" %>
 <%
 	String pageNoString = request.getParameter("pageNo");
-	out.print(pageNoString);
+	//out.print(pageNoString);
 	int pageNo = 1;
 	if (pageNoString != null && !"".equals(pageNoString)) {
 		pageNo = Integer.parseInt(pageNoString);
 	}
 	int pageSize = 2;
-	PageModel pageModel = UserManager.getInstance().findAllUser(pageNo, pageSize);
+	PageModel<User> pageModel = UserManager.getInstance().findAllUser(pageNo, pageSize);
  %>
 <html>
 	<head>
@@ -111,9 +111,9 @@
 					</td>
 				</tr>
 				<%
-					List userList = pageModel.getList();
-					for(Iterator iter = userList.iterator(); iter.hasNext();) {
-						User user = (User)iter.next();
+					List<User> userList = pageModel.getList();
+					for(Iterator<User> iter = userList.iterator(); iter.hasNext();) {
+						User user = iter.next();
 				 %>
 				<tr>
 					<td class="rd8">

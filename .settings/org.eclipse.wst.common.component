@@ -4,6 +4,6 @@
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/drp1.0/WebRoot/WEB-INF/classes"/>
-        <property name="context-root" value="/drp1.8"/>
+        <property name="context-root" value="/drp1.9"/>
     </wb-module>
 </project-modules>
