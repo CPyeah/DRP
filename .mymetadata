@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="drp1.9"
+  name="drp2.0"
   id="myeclipse.1418126056301"
-  context-root="/drp1.9"
+  context-root="/drp2.0"
   j2ee-spec="5.0"
-  archive="drp1.9.war">
+  archive="drp2.0.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

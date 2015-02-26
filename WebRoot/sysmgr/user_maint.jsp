@@ -35,7 +35,11 @@
 	}
 		
 	function checkAll() {
-
+		//alert("hello");
+		var selectFlags = document.getElementsByName("selectFlag");
+		for(var i=0; i<selectFlags.length; i++) {
+			selectFlags[i].checked = document.getElementById("ifAll").checked;
+		}
 	}
 
 	function topPage() {
