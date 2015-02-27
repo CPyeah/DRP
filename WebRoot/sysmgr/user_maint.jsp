@@ -12,7 +12,7 @@
 	if (pageNoString != null && !"".equals(pageNoString)) {
 		pageNo = Integer.parseInt(pageNoString);
 	}
-	int pageSize = 2;
+	int pageSize = 8;
 	PageModel<User> pageModel = UserManager.getInstance().findAllUser(pageNo, pageSize);
  %>
 <html>
@@ -27,11 +27,46 @@
 	}
 	
 	function modifyUser() {
-		window.self.location = "user_modify.html";
+		var selectFlags = document.getElementsByName("selectFlag");
+		var count = 0;
+		var index = 0;
+		for(var i=0; i<selectFlags.length; i++) {
+			if(selectFlags[i].checked) {
+				count++;
+				index = i;
+			}
+		}
+		if(count==0) {
+			alert("请选择需要修改的数据！");
+			return;
+		}
+		if(count>1) {
+			alert("一次只能修改一个数据！");
+			return;
+		}
+		//alert(selectFlags[index].value);
+		
+		window.self.location = "user_modify.jsp?userId="+selectFlags[index].value;
 	}
 	
 	function deleteUser() {
-		
+		var flag = false;
+		var selectFlags = document.getElementsByName("selectFlag");
+		//此循环判断是否有选中的  checkbox
+		for(var i=0; i<selectFlags.length; i++) {
+			if(selectFlags[i].checked) {
+				//表示有选中的checkbox
+				flag = true;
+				break;
+			}
+		}
+		if(!flag) {
+			alert("请选择需要删除的数据");
+			return;
+		}
+		if(window.confirm("确认删除？！")) {
+			alert("zhendeyaoshanle a !");
+		}
 	}
 		
 	function checkAll() {
