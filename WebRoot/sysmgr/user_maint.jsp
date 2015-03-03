@@ -12,7 +12,7 @@
 	if (pageNoString != null && !"".equals(pageNoString)) {
 		pageNo = Integer.parseInt(pageNoString);
 	}
-	int pageSize = 8;
+	int pageSize = 4;
 	PageModel<User> pageModel = UserManager.getInstance().findAllUser(pageNo, pageSize);
  %>
 <html>

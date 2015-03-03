@@ -182,5 +182,29 @@ public class UserManager {
 		
 		return count;
 	}
-
+	/**
+	 * ÐÞ¸ÄÓÃ»§ 
+	 * @param user
+	 */
+	public void modifyUser(User user) {
+		String sql = "update t_user set user_name=?, password=?, contact_tel=?, email=?" +
+				"where user_id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getContactTel());
+			pstmt.setString(4, user.getEmail());
+ 			pstmt.setString(5, user.getUserId());
+			pstmt.execute();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt);
+			DBUtil.close(conn);
+		}
+	}
 }
