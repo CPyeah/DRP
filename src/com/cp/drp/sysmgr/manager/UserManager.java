@@ -207,4 +207,56 @@ public class UserManager {
 			DBUtil.close(conn);
 		}
 	}
+	
+	/**
+	 * 根据用户Id删除用户
+	 * @param userId
+	 */
+	public void delUser(String userId) {
+		String sql = "delete from t_user where user_id = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.execute();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt);
+			DBUtil.close(conn);
+		}
+	}
+	
+	/**
+	 * 根据用户Id的集合删除
+	 * 要求采用一条语句删除，使用占位符的方式
+	 * 一次调用
+	 * @param userId
+	 */
+	public void delUser(String[] userId) {
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

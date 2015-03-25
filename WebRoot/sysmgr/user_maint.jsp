@@ -7,6 +7,15 @@
 <%@ page import="java.text.*" %>
 <%
 	String pageNoString = request.getParameter("pageNo");
+	String command = request.getParameter("command");
+	if("del".equals(command)) {
+		String[] userIds = request.getParameterValues("selectFlag");
+		for(int i=0; i<userIds.length; i++) {
+			//out.println(userIds[i]);
+			UserManager.getInstance().delUser(userIds[i]);
+		}
+		out.println("删除成功！");
+	}
 	//out.print(pageNoString);
 	int pageNo = 1;
 	if (pageNoString != null && !"".equals(pageNoString)) {
@@ -65,7 +74,11 @@
 			return;
 		}
 		if(window.confirm("确认删除？！")) {
-			alert("zhendeyaoshanle a !");
+			with(document.getElementById("userform")) {
+				action="user_maint.jsp";
+				method="post";
+				submit();
+			}
 		}
 	}
 		
@@ -98,6 +111,7 @@
 
 	<body class="body1">
 		<form name="userform" id="userform">
+			<input type="hidden" name="command" value="del">
 			<div align="center">
 				<table width="95%" border="0" cellspacing="0" cellpadding="0"
 					height="35">
